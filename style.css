@@ -59,7 +59,7 @@ aside {
 }
 
 #search {
-    width: 85%;
+    width: 90%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 6px;
@@ -96,6 +96,17 @@ aside {
 #expand-categories:hover {
     background-color: var(--button-hover-bg);
 }
+.category-label {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.category-label input {
+    margin-right: 8px;
+}
+
 
 #content {
     flex-grow: 1;

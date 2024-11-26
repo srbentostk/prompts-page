@@ -13,17 +13,32 @@ function displayPrompts(data) {
     content.innerHTML = ''; // Limpa o conteúdo
 
     data.forEach(prompt => {
-        const promptElement = document.createElement('div');
-        promptElement.classList.add('prompt');
+        const promptCard = document.createElement('div');
+        promptCard.classList.add('prompt-card');
 
-        promptElement.innerHTML = `
-            <h2>${prompt.nome}</h2>
-            <p>${prompt.descricao}</p>
-            <p><strong>Tags:</strong> ${prompt.tags.join(', ')}</p>
-            <a href="${prompt.url}" target="_blank">Acessar Prompt</a>
+        promptCard.innerHTML = `
+            <table>
+                <tr>
+                    <td><strong>Nome:</strong></td>
+                    <td>${prompt.nome}</td>
+                </tr>
+                <tr>
+                    <td><strong>Descrição:</strong></td>
+                    <td>${prompt.descricao}</td>
+                </tr>
+                <tr>
+                    <td><strong>Tags:</strong></td>
+                    <td>${prompt.tags.join(', ')}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right;">
+                        <a href="${prompt.url}" target="_blank" class="access-button">Acessar Prompt</a>
+                    </td>
+                </tr>
+            </table>
         `;
 
-        content.appendChild(promptElement);
+        content.appendChild(promptCard);
     });
 }
 
@@ -52,10 +67,15 @@ themeSwitch.addEventListener('change', () => {
 
 // Implementação das categorias
 const categories = [
-    'Código', 'Criação de Conteúdo', /* ... restante das categorias ... */ 'Desenvolvimento Profissional'
+    'Código', 'Criação de Conteúdo', 'Software', 'Cybersegurança', 'Ciência de Dados', 'Tecnologia', 'Análise de Texto',
+    'Startups', 'Twitter', 'Marketing', 'Feedback', 'Extração de Dados', 'AI', 'Checar Gramática', 'Livros',
+    'Estudantes', 'Escola', 'Trends de Tech', 'Sumário', 'Entrevista de Emprego', 'Conselho de Carreira', 'Currículo',
+    'Youtube', 'Proofreading', 'Escrita', 'Psicologia', 'Colaboração', 'Brainstorm', 'Produtividade', 'Procura de Emprego',
+    // ... restante das categorias ...
+    'Desenvolvimento Profissional'
 ];
 
-const mainCategories = categories.slice(0, 10); // Principais categorias
+const mainCategories = categories.slice(0, 20); // Exibe pelo menos 20 categorias
 const categoriesList = document.getElementById('categories');
 const expandButton = document.getElementById('expand-categories');
 let categoriesExpanded = false;
@@ -85,6 +105,9 @@ expandButton.addEventListener('click', () => {
     }
 });
 
+// Estiliza o botão de expandir categorias
+expandButton.classList.add('expand-button');
+
 // Implementação da busca de categorias
 const searchInput = document.getElementById('search');
 
@@ -103,4 +126,3 @@ function filterByCategory(category) {
     );
     displayPrompts(filteredPrompts);
 }
-

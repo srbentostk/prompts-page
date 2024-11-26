@@ -1,0 +1,84 @@
+/* Estilos gerais */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.toggle-theme {
+    display: flex;
+    align-items: center;
+}
+
+#theme-switch {
+    display: none;
+}
+
+#theme-icon {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+main {
+    display: flex;
+}
+
+aside {
+    width: 250px;
+    padding: 10px;
+}
+
+#search {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+#categories {
+    list-style: none;
+    padding: 0;
+}
+
+#categories li {
+    margin: 5px 0;
+}
+
+#expand-categories {
+    margin-top: 10px;
+}
+
+#content {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+    }
+}
+
+/* Modo claro e escuro */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+}
+

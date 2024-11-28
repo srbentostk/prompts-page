@@ -298,3 +298,78 @@ aside {
 }
 
 
+/* Botões de redes sociais */
+.social-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 12px;
+    transition: background 0.3s;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adiciona sombra ao texto */
+}
+
+.social-btn i {
+    margin-right: 8px;
+    font-size: 1.5em;
+}
+
+/* Estilos específicos para cada rede social */
+.social-btn.youtube {
+    background: #FF0000;
+}
+
+.social-btn.youtube:hover {
+    background: #cc0000;
+}
+
+.social-btn.instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.social-btn.instagram:hover {
+    opacity: 0.8;
+}
+
+.social-btn.tiktok {
+    background: #010101;
+}
+
+.social-btn.tiktok:hover {
+    background: #0f0f0f;
+}
+
+.social-btn.threads {
+    background: #000000;
+}
+
+.social-btn.threads:hover {
+    background: #1a1a1a;
+}
+
+.social-btn.twitter {
+    background: #1DA1F2;
+}
+
+.social-btn.twitter:hover {
+    background: #0d8ddb;
+}
+.social-btn.prompts {
+    background:#bd5b00
+}
+.social-btn.prompts:hover {
+    background:#a04a00
+}
+.social-btn:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}

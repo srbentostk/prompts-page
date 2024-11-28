@@ -14,10 +14,16 @@
             <input type="checkbox" id="theme-switch">
             <label for="theme-switch" id="theme-icon">🌞</label>
         </div>
+        
     </header>
+    
 
     <p class="subtitle">Quer <strong>ESCALAR</strong> sua produtividade com IA? 🤖 <a href="https://mechamedebento.cloud">Clique aqui</a></p>
-
+        <div class="search">
+            <p id="total-prompts">Total de Prompts: <span id="prompt-count">0</span></p>
+            <br>
+            <input type="text" id="prompt-search" placeholder="Pesquisar prompts...">
+        </div>
     <main>
         <aside>
             <div class="sidebar-content">
@@ -33,6 +39,16 @@
             <!-- Conteúdo filtrado será exibido aqui -->
         </section>
     </main>
+    <!-- Popup para exibir o prompt -->
+<div id="prompt-popup" class="hidden">
+    <div class="popup-content">
+        <span class="close-popup">&times;</span>
+        <h2 id="popup-prompt-name"></h2>
+        <pre id="popup-prompt-text"></pre>
+        <button id="copy-button">Copiar Texto</button>
+    </div>
+</div>
+
 
     <script src="script.js"></script>
 </body>

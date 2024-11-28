@@ -4,6 +4,8 @@ fetch('https://raw.githubusercontent.com/srbentostk/prompts/refs/heads/main/inde
     .then(data => {
         // Armazena os dados globalmente
         window.promptData = data;
+        // Atualiza o contador de prompts
+        document.getElementById('prompt-count').textContent = data.length;
         displayPrompts(data);
     });
 
@@ -32,7 +34,7 @@ function displayPrompts(data) {
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: right;">
-                        <a href="${prompt.url}" target="_blank" class="access-button">Acessar Prompt</a>
+                        <button class="open-prompt-button" data-url="${prompt.url}" data-nome="${prompt.nome}">Abrir Prompt</button>
                     </td>
                 </tr>
             </table>
@@ -40,7 +42,97 @@ function displayPrompts(data) {
 
         content.appendChild(promptCard);
     });
+    // Adicionar event listeners aos botões "Abrir Prompt"
+    const openButtons = document.querySelectorAll('.open-prompt-button');
+    openButtons.forEach(button => {
+        button.addEventListener('click', openPromptPopup);
+    });
 }
+function openPromptPopup(event) {
+    const url = event.target.getAttribute('data-url');
+    const nome = event.target.getAttribute('data-nome');
+
+    // Exibe o nome do prompt no popup
+    document.getElementById('popup-prompt-name').textContent = nome;
+
+    // Faz a requisição para obter o texto do prompt
+    fetch(url)
+        .then(response => response.text())
+        .then(text => {
+            // Exibe o texto no popup
+            document.getElementById('popup-prompt-text').textContent = text;
+
+            // Exibe o popup
+            document.getElementById('prompt-popup').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Erro ao carregar o prompt:', error);
+            alert('Ocorreu um erro ao carregar o prompt.');
+        });
+}
+// Fecha o popup ao clicar no botão de fechar
+document.querySelector('.close-popup').addEventListener('click', () => {
+    document.getElementById('prompt-popup').classList.add('hidden');
+});
+
+// Fecha o popup ao clicar fora do conteúdo
+document.getElementById('prompt-popup').addEventListener('click', (event) => {
+    if (event.target === document.getElementById('prompt-popup')) {
+        document.getElementById('prompt-popup').classList.add('hidden');
+    }
+});
+// Event listener para o botão "Copiar Texto":
+document.getElementById('copy-button').addEventListener('click', () => {
+    const promptText = document.getElementById('popup-prompt-text').textContent;
+    navigator.clipboard.writeText(promptText).then(() => {
+        alert('Texto copiado para a área de transferência!');
+    }).catch(err => {
+        console.error('Erro ao copiar o texto:', err);
+    });
+});
+// Novo campo de pesquisa para filtrar prompts pelo texto
+document.getElementById('prompt-search').addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    const filteredPrompts = window.promptData.filter(prompt =>
+        prompt.nome.toLowerCase().includes(query) ||
+        prompt.descricao.toLowerCase().includes(query) ||
+        prompt.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+
+    displayPrompts(filteredPrompts);
+
+    // Atualiza o contador de prompts exibidos
+    document.getElementById('prompt-count').textContent = filteredPrompts.length;
+});
+function filterPrompts() {
+    const query = document.getElementById('prompt-search').value.toLowerCase();
+    let filteredPrompts = window.promptData;
+
+    // Filtra por categorias selecionadas
+    if (selectedCategories.length > 0) {
+        filteredPrompts = filteredPrompts.filter(prompt =>
+            selectedCategories.every(category => prompt.tags.includes(category))
+        );
+    }
+
+    // Filtra por texto de pesquisa
+    if (query) {
+        filteredPrompts = filteredPrompts.filter(prompt =>
+            prompt.nome.toLowerCase().includes(query) ||
+            prompt.descricao.toLowerCase().includes(query) ||
+            prompt.tags.some(tag => tag.toLowerCase().includes(query))
+        );
+    }
+
+    displayPrompts(filteredPrompts);
+
+    // Atualiza o contador de prompts exibidos
+    document.getElementById('prompt-count').textContent = filteredPrompts.length;
+}
+
+
+
+
 
 // Implementação do modo noturno
 const themeSwitch = document.getElementById('theme-switch');
@@ -134,6 +226,8 @@ function displayCategories(catList) {
         categoriesList.appendChild(label);
     });
 }
+// Atualizar o event listener da pesquisa
+document.getElementById('prompt-search').addEventListener('input', filterPrompts);
 // Função para lidar com a seleção de categorias
 function handleCategorySelection() {
     const checkboxes = document.querySelectorAll('#categories input[type="checkbox"]');
@@ -143,7 +237,8 @@ function handleCategorySelection() {
             selectedCategories.push(checkbox.value);
         }
     });
-    filterByCategories();
+    //filterByCategories();
+    filterPrompts();
 }
 // Função de filtragem baseada em múltiplas categorias
 function filterByCategories() {

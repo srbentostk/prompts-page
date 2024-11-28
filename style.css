@@ -18,7 +18,7 @@ header {
     text-align: left;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 20px;
     margin: 10px 10;
 }
 
@@ -68,10 +68,19 @@ aside {
     border-radius: 6px;
     border: 1px solid var(--border-color);
 }
-#prompt-search{
-    width: 90%;
+.search {
+    display: flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+}
+#prompt-search {
+    flex-grow: 1;
+    max-width: 400px;
     padding: 8px;
-    margin-bottom: 10px;
+    font-size: 1em;
     border-radius: 6px;
     border: 1px solid var(--border-color);
 }
@@ -177,6 +186,16 @@ aside {
     #categories {
         max-height: 200px;
     }
+    .search {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    
+
+    #prompt-search {
+        max-width: 100%;
+    }
 }
 
 /* Modo claro e escuro */
@@ -207,9 +226,10 @@ aside {
 }
 /* Alterações de exibição dos Prompts */
 #total-prompts {
-    font-size: 1.2em;
-    color: #555;
-    margin-top: 10px;
+    position: flex;
+    margin: 0 20px 0 0;
+    font-size: 1em;
+    color: var(--text-color);
 }
 /* Estilos para o popup */
 #prompt-popup {
@@ -276,12 +296,5 @@ aside {
 .copy-button:hover {
     background-color: var(--button-hover-bg);
 }
-#prompt-search {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    margin: 15px auto;
-    display: block;
-    font-size: 1em;
-}
+
 

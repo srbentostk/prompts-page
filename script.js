@@ -59,9 +59,7 @@ function openPromptPopup(event) {
     fetch(url)
         .then(response => response.text())
         .then(text => {
-            if (text.trim().startsWith('```markdown')) {
-                text = text.trim().slice(3).trim();
-            }
+            
             
              // Remove '```' do final, se existir
              if (text.trim().endsWith('```')) {
@@ -69,7 +67,7 @@ function openPromptPopup(event) {
             }
 
             // Remove '```' do início, se existir
-            if (text.trim().startsWith('```')) {
+            if (text.trim().startsWith('```markdown')) {
                 text = text.trim().slice(3).trim();
             }
             // Exibe o texto no popup
